@@ -4,5 +4,6 @@ class studentData(
     val name: String,
     val birthYear: Int,
     val address: String,
-) {
-}
+    )
+    {
+    }
