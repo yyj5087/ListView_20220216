@@ -1,9 +1,11 @@
 package com.nepplus.listview_20220216
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.nepplus.listview_20220216.adapters.StudentAdapter
 import com.nepplus.listview_20220216.datas.studentData
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mStudentList.add(studentData("조경진", 1988,"서울시 동대문구"))
+        mStudentList.add(studentData("조경진", 1988,"서울시 동대문구")) //studentData 객체
         mStudentList.add(studentData("고재천", 1988,"서울시 중랑구"))
         mStudentList.add(studentData("방우진", 1983,"경기도 고양시"))
         mStudentList.add(studentData("서정민", 1984,"경기도 광명시"))
@@ -41,8 +43,18 @@ class MainActivity : AppCompatActivity() {
         studentListView.setOnItemLongClickListener { adapterView, view, position, l ->
 
             val longClickedStudent = mStudentList[position]
+
+            AlertDialog.Builder(this)
+                .setTitle("학생 삭제")
+                .setMessage("정말 ${longClickedStudent.name} 학생을 삭제하겠습니까?")
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+
             mStudentList.remove( longClickedStudent)
             mAdapter.notifyDataSetChanged()
+                })
+
+                .setNegativeButton("취소",null)
+                .show()
             return@setOnItemLongClickListener true  //롱클릭만 이벤트하겠다.
 
         }
